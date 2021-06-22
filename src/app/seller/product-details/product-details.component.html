@@ -1,0 +1,133 @@
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Product?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <form #productData="ngForm" class=" needs-validation " novalidate>
+                    <div class="form-row ">
+                        <div class="col-md-12 mb-3 ">
+                            <input ngModel type="text " class="form-control " id="productName " name="name " placeholder="Product Name " required>
+                            <div class="valid-feedback ">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback ">
+                                Please provide a valid name.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row ">
+                        <div class="col-md-4 mb-3 ">
+                            <input ngModel type="number " class="form-control " id="productPrice " name="price " placeholder="Product Price " required min="0 ">
+                            <div class="valid-feedback ">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback ">
+                                Please provide a valid price.
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3 ">
+                            <input ngModel type="number " class="form-control " id="productDiscount " name="discount " placeholder="Product Discount " required min="0 " max="1 " step=".01 ">
+                            <div class="valid-feedback ">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback ">
+                                Please provide a valid discount.
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3 ">
+                            <input ngModel type="number " class="form-control " id="productQuantity " name="quantity " placeholder="Product Quantity " required min="1 ">
+                            <div class="valid-feedback ">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback ">
+                                Please provide a valid discount.
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-row ">
+                        <div class="col-md-12 mb-3 ">
+                            <textarea ngModel name="description " class="form-control " id="productDescription " placeholder="Product Description " cols="30 " rows="4 " required></textarea>
+                            <div class="valid-feedback ">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback ">
+                                Please provide a valid discount.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row ">
+                        <div class="col-md-4 mb-3 ">
+                            <!-- <label for="productDescription">Product Description</label> -->
+                            <select ngModel class="custom-select form-control " name="category" id="category">
+                              <option value="" selected>Select Category</option>
+                              <option *ngFor="let category of categoryList " [ngValue]="category">{{category.name}}</option>
+                            </select>
+                            <div class="valid-feedback ">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback ">
+                                Please provide a valid price.
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3 ">
+                            <select ngModel class="custom-select form-control " name="species" id="species">
+                              <option value="" selected>Select Species</option>
+                              <option *ngFor="let species of speciesList " [ngValue]="species">{{species.speciesName}}</option>
+                            </select>
+                            <div class="valid-feedback ">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback ">
+                                Please provide a valid price.
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3 ">
+                            <select ngModel class="custom-select form-control " name="brand" id="brand">
+                                <option value="" selected>Select brand</option>
+                                <option *ngFor="let brand of brandList " [ngValue]="brand">{{brand.name}}</option>
+                            </select>
+                            <div class="valid-feedback ">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback ">
+                                Please provide a valid price.
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-row ">
+                        <div class="col-md-12 mb-3 ">
+
+                            <div class="custom-file ">
+                                <input ngModel #imgq="ngModel" (change)="test($event)" type="file" class="custom-file-input" id="images" name="images" multiple>
+                                <label class="custom-file-label" for="images">Choose Images</label>
+                            </div>
+                            <div class="valid-feedback ">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback ">
+                                Please choose product images.
+                            </div>
+                        </div>
+                    </div>
+
+                    {{productData.value|json}}
+
+
+                    <div class="modal-footer ">
+                        <button class="btn btn-secondary " type="button " data-dismiss="modal ">Cancel</button>
+                        <a class="btn btn-primary " href="login.html ">Logout</a>
+                        <button class="btn btn-primary " type="submit ">Submit form</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
