@@ -1,33 +1,22 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Brand} from 'src/app/model/Brand.model';
-import {Category} from 'src/app/model/Category.model';
-import {Species} from 'src/app/model/Species.model';
 import {Product} from '../../model/Product.model';
-
+import {Category} from '../../model/Category.model';
+import {Brand} from '../../model/Brand.model';
+import {Species} from '../../model/Species.model';
 
 @Component({
-  selector: 'app-product-details',
-  templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.css']
+  selector: 'app-product-edit-details',
+  templateUrl: './product-edit-details.component.html',
+  styleUrls: ['./product-edit-details.component.css']
 })
-export class ProductDetailsComponent implements OnInit {
+export class ProductEditDetailsComponent implements OnInit {
+  @Input('product') product: Product;
   @Input('categories') categoryList: Category[];
   @Input('brands') brandList: Brand[];
   @Input('species') speciesList: Species[];
-  @Output('insert') insert = new EventEmitter<any>();
+  @Output('update') update = new EventEmitter<any>();
   selectedImages: File[];
   images: any[] = [];
-  formDefaultValues = {
-    name: '',
-    price: '',
-    discount: '',
-    quantity: '',
-    description: '',
-    category: '',
-    species: '',
-    brand: '',
-    available: false
-  };
 
   constructor() {
   }
@@ -36,18 +25,18 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   insertNewProduct(product: Product): void {
+    product = Object.assign(this.product, product);
     product.category = {id: product.category.id, name: product.category.name};
     // @ts-ignore
     product.species = {id: product.species.speciesId, name: product.species.speciesName};
     // @ts-ignore
     product.seller = {id: 1};
-    this.insert.emit({product, images: this.selectedImages});
-    document.getElementById('modalCloseBtn').click();
+    this.update.emit({product, images: this.selectedImages});
+    document.getElementById('editModalCloseBtn').click();
   }
 
   changeImages(imageChooser: any): void {
     this.selectedImages = Array.from(imageChooser.files);
-    this.images = [];
     for (const file of this.selectedImages) {
       const reader = new FileReader();
       reader.onload = event => this.images.push({name: file.name, url: event.target.result});
@@ -65,5 +54,14 @@ export class ProductDetailsComponent implements OnInit {
   resetForm(): void {
     this.images = [];
     this.selectedImages = [];
+  }
+
+  deleteServerImage(image: any): void {
+    if (image.hasOwnProperty('id')) {
+      const index = this.product.images.findIndex(e => e.id === image.id);
+      this.product.images.splice(index, 1);
+    } else {
+      this.deleteImage(image.name);
+    }
   }
 }

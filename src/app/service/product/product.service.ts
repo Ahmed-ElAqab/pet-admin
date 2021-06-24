@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { Product } from '../../model/Product.model';
-import { Products } from 'src/app/model/Products.model';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {environment} from '../../../environments/environment';
+import {Product} from '../../model/Product.model';
+import {Products} from 'src/app/model/Products.model';
 
 
 @Injectable({
@@ -13,23 +13,23 @@ import { Products } from 'src/app/model/Products.model';
 export class ProductService {
   private url = environment.apiUrl + 'products';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
   getProducts(page?: number, pageLimit?: number, minPrice?: number, maxPrice?: number): Observable<Products> {
     let parameters = new HttpParams();
     if (page != undefined && pageLimit != undefined) {
       parameters = parameters.set('page', page.toString()).append('pageLimit', pageLimit.toString());
     }
-    if(minPrice != undefined && maxPrice != undefined) {
+    if (minPrice != undefined && maxPrice != undefined) {
       parameters = parameters.append('price.lt', minPrice.toString()).append('price.gt', maxPrice.toString());
     }
-    return this.httpClient.get<Products>(this.url, { params: parameters });
+    return this.httpClient.get<Products>(this.url, {params: parameters});
   }
 
   getAllProducts(): Observable<Product[]> {
     return this.httpClient.get<Product[]>(this.url);
   }
-  
 
 
   getProduct(id: number): Observable<Product> {
@@ -57,10 +57,10 @@ export class ProductService {
     if (page != undefined && pageLimit != undefined) {
       parameters = parameters.append('page', page.toString()).append('pageLimit', pageLimit.toString());
     }
-    if(minPrice != undefined && maxPrice != undefined) {
+    if (minPrice != undefined && maxPrice != undefined) {
       parameters = parameters.append('price.lt', minPrice.toString()).append('price.gt', maxPrice.toString());
     }
-    return this.httpClient.get<Products>(this.url, { params: parameters });
+    return this.httpClient.get<Products>(this.url, {params: parameters});
   }
 
   getBrandProducts(brandId: number, page?: number, pageLimit?: number, minPrice?: number, maxPrice?: number): Observable<Products> {
@@ -68,10 +68,10 @@ export class ProductService {
     if (page != undefined && pageLimit != undefined) {
       parameters = parameters.append('page', page.toString()).append('pageLimit', pageLimit.toString());
     }
-    if(minPrice != undefined && maxPrice != undefined) {
+    if (minPrice != undefined && maxPrice != undefined) {
       parameters = parameters.append('price.lt', minPrice.toString()).append('price.gt', maxPrice.toString());
     }
-    return this.httpClient.get<Products>(this.url, { params: parameters });
+    return this.httpClient.get<Products>(this.url, {params: parameters});
   }
 
   getProductsByCategoryAndBrand(categoryId: number, brandId: number, page?: number, pageLimit?: number, minPrice?: number, maxPrice?: number): Observable<Products> {
@@ -79,10 +79,19 @@ export class ProductService {
     if (page != undefined && pageLimit != undefined) {
       parameters = parameters.append('page', page.toString()).append('pageLimit', pageLimit.toString());
     }
-    if(minPrice != undefined && maxPrice != undefined) {
+    if (minPrice != undefined && maxPrice != undefined) {
       parameters = parameters.append('price.lt', minPrice.toString()).append('price.gt', maxPrice.toString());
     }
-    return this.httpClient.get<Products>(this.url, { params: parameters });
+    return this.httpClient.get<Products>(this.url, {params: parameters});
+  }
+
+  addProductWithImages(files: File[], product: Product): Observable<Product> {
+    const formData: FormData = new FormData();
+    files?.forEach(item => {
+      formData.append('files', item);
+    });
+    formData.append('product', JSON.stringify(product));
+    return this.httpClient.post<Product>( this.url + '/images', formData);
   }
 
 }

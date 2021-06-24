@@ -1,12 +1,11 @@
-<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModal" data-backdrop="static"
+<div class="modal fade" id="productEditModal" tabindex="-1" aria-labelledby="productModal" data-backdrop="static"
      data-keyboard="false"
      aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add New Product?</h5>
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close"
-                (click)="resetForm(); productData.reset(formDefaultValues); ">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close" (click)="resetForm()">
           <span aria-hidden="true">×</span>
         </button>
       </div>
@@ -26,7 +25,8 @@
                 id="productName"
                 placeholder="Product Name"
                 required
-                minlength="5">
+                minlength="5"
+                [ngModel]="product?.name">
               <div class="valid-feedback">
                 Looks good!
               </div>
@@ -49,7 +49,8 @@
                 id="productPrice"
                 placeholder="Product Price"
                 required
-                min="0">
+                min="0"
+                [ngModel]="product?.price">
               <div class="valid-feedback">
                 Looks good!
               </div>
@@ -72,7 +73,8 @@
                 required
                 min="0"
                 max="1"
-                step=".01">
+                step=".01"
+                [ngModel]="product?.discount">
               <div class="valid-feedback">
                 Looks good!
               </div>
@@ -93,7 +95,8 @@
                 id="productQuantity"
                 placeholder="Product Quantity"
                 required
-                min="1">
+                min="1"
+                [ngModel]="product?.quantity">
               <div class="valid-feedback">
                 Looks good!
               </div>
@@ -117,7 +120,8 @@
                 placeholder="Product Description"
                 cols="30"
                 rows="4"
-                required>
+                required
+                [ngModel]="product?.description">
                             </textarea>
               <div class="valid-feedback">
                 Looks good!
@@ -137,9 +141,10 @@
                 class="custom-select form-control"
                 [class.is-valid]="productCategory.touched && productCategory.valid"
                 [class.is-invalid]="productCategory.touched && productCategory.invalid"
-                id="category">
-                <option value="" selected>Select Category</option>
-                <option *ngFor="let category of categoryList" [ngValue]="category">{{category.name}}</option>
+                id="category"
+                [ngModel]="product?.category">
+                <option value="" selected disabled>Select Category</option>
+                <option *ngFor="let category of categoryList" [value]="category">{{category.name}}</option>
               </select>
               <div class="valid-feedback">
                 Looks good!
@@ -157,9 +162,10 @@
                 class="custom-select form-control"
                 [class.is-valid]="productSpecies.touched && productSpecies.valid"
                 [class.is-invalid]="productSpecies.touched && productSpecies.invalid"
-                id="species">
+                id="species"
+                [ngModel]="product?.species">
                 <option value="" selected>Select Species</option>
-                <option *ngFor="let species of speciesList" [ngValue]="species">{{species.speciesName}}</option>
+                <option *ngFor="let species of speciesList" [value]="species">{{species.speciesName}}</option>
               </select>
               <div class="valid-feedback">
                 Looks good!
@@ -177,9 +183,10 @@
                 [class.is-valid]="productBrand.touched && productBrand.valid"
                 [class.is-invalid]="productBrand.touched && productBrand.invalid"
                 class="custom-select form-control"
-                id="brand">
+                id="brand"
+                [ngModel]="product?.brand">
                 <option value="" selected>Select brand</option>
-                <option *ngFor="let brand of brandList" [ngValue]="brand">{{brand.name}}</option>
+                <option *ngFor="let brand of brandList" [value]="brand">{{brand.name}}</option>
               </select>
               <div class="valid-feedback">
                 Looks good!
@@ -198,7 +205,8 @@
                   name="available"
                   class="form-check-input"
                   type="checkbox"
-                  id="productAvailability">
+                  id="productAvailability"
+                  [ngModel]="product?.available">
                 <label class="form-check-label" for="productAvailability">
                   Product Availability
                 </label>
@@ -215,7 +223,8 @@
                   class="custom-file-input"
                   accept="image/*"
                   multiple
-                  (change)="changeImages($event.target)">
+                  (change)="changeImages($event.target)"
+                  (click)=" productData.form.patchValue(product)">
                 <label class="custom-file-label" for="images">Choose Images</label>
               </div>
               <div class="valid-feedback">
@@ -230,7 +239,8 @@
           {{productData.value|json}}
 
           <div class="row mx-3 my-3">
-            <div *ngFor="let image of images" class="imgContainer my-1 col-4" (click)="deleteImage(image.name)">
+            <div *ngFor="let image of product?.images.concat(images)" class="imgContainer my-1 col-4"
+                 (click)="deleteServerImage(image); productData.form.patchValue(product); productData.form.markAllAsTouched()">
               <img [src]="image.url"
                    class="image p-1 w-100 h-100 border border-3 border-light rounded shadow-sm"
                    alt="Product Image">
@@ -241,10 +251,10 @@
           </div>
 
           <div class="modal-footer">
-            <button class="btn btn-secondary" id="modalCloseBtn" type="button" data-dismiss="modal"
-                    (click)="resetForm(); productData.reset(formDefaultValues); ">Cancel
+            <button class="btn btn-secondary" id="editModalCloseBtn" type="button" data-dismiss="modal"
+                    (click)="resetForm()">Cancel
             </button>
-            <button class="btn btn-primary" type="submit" [disabled]="productData.invalid">Save</button>
+            <button class="btn btn-primary" type="submit" [disabled]="productData.invalid">Update</button>
           </div>
         </form>
       </div>

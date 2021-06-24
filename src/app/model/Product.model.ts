@@ -13,7 +13,7 @@ export class Product {
   category: Category = new Category();
   brand: Brand;
   discount: number;
-  avaialble?: boolean;
+  available?: boolean;
   rates: Rate[];
   species: Species;
   images: Image[];
