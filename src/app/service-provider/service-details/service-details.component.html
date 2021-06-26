@@ -1,0 +1,231 @@
+<div class="modal fade" id="serviceModal" tabindex="-1" aria-labelledby="serviceModal" data-backdrop="static"
+     data-keyboard="false"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Service?</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close"
+                (click)="resetForm(); serviceData.reset(formDefaultValues); ">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #serviceData="ngForm" class="needs-validation" (ngSubmit)="insertNewService(serviceData.value)">
+          <div class="form-row">
+            <div class="col-md-12 mb-3">
+              <label for="serviceName">Service Name</label>
+              <input
+                ngModel
+                name="name"
+                #serviceName="ngModel"
+                type="text"
+                class="form-control"
+                [class.is-valid]="serviceName.touched && serviceName.valid"
+                [class.is-invalid]="serviceName.touched && serviceName.invalid"
+                id="serviceName"
+                placeholder="Service Name"
+                required
+                minlength="5">
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+              <div class="invalid-feedback">
+                Please provide a valid name.
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6 mb-3">
+              <label for="servicePrice">Service Price</label>
+              <input
+                ngModel
+                name="price"
+                #servicePrice="ngModel"
+                type="number"
+                class="form-control"
+                [class.is-valid]="servicePrice.touched && servicePrice.valid"
+                [class.is-invalid]="servicePrice.touched && servicePrice.invalid"
+                id="servicePrice"
+                placeholder="Service Price"
+                required
+                min="0">
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+              <div class="invalid-feedback">
+                Please provide a valid price.
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="serviceDiscount">Service Discount</label>
+              <input
+                ngModel
+                name="discount"
+                #serviceDiscount="ngModel"
+                type="number"
+                class="form-control"
+                [class.is-valid]="serviceDiscount.touched && serviceDiscount.valid"
+                [class.is-invalid]="serviceDiscount.touched && serviceDiscount.invalid"
+                id="serviceDiscount"
+                placeholder="Service Discount"
+                required
+                min="0"
+                max="1"
+                step=".01">
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+              <div class="invalid-feedback">
+                Please provide a valid discount.
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6 mb-3">
+              <label for="serviceStartTime">Service Start Time</label>
+              <input
+                ngModel
+                name="startTime"
+                #serviceStartTime="ngModel"
+                type="time"
+                class="form-control"
+                [class.is-valid]="serviceStartTime.touched && serviceStartTime.valid"
+                [class.is-invalid]="serviceStartTime.touched && serviceStartTime.invalid"
+                id="serviceStartTime"
+                placeholder="Service Start Time"
+                step="1"
+                required>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+              <div class="invalid-feedback">
+                Please provide a valid time.
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="serviceEndTime">Service End Time</label>
+              <input
+                ngModel
+                name="endTime"
+                #serviceEndTime="ngModel"
+                type="time"
+                class="form-control"
+                [class.is-valid]="serviceEndTime.touched && serviceEndTime.valid"
+                [class.is-invalid]="serviceEndTime.touched && serviceEndTime.invalid"
+                id="serviceEndTime"
+                placeholder="Service End Time"
+                step="1"
+                required>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+              <div class="invalid-feedback">
+                Please provide a valid time.
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-12 mb-3">
+              <label for="serviceDescription">Service Description</label>
+              <textarea
+                ngModel
+                name="description"
+                #serviceDesc="ngModel"
+                class="form-control"
+                [class.is-valid]="serviceDesc.touched && serviceDesc.valid"
+                [class.is-invalid]="serviceDesc.touched && serviceDesc.invalid"
+                id="serviceDescription"
+                placeholder="Service Description"
+                cols="30"
+                rows="4"
+                required>
+              </textarea>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+              <div class="invalid-feedback">
+                Please provide a valid description.
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-12 mb-3">
+              <label for="serviceType">Service Type</label>
+              <select
+                ngModel
+                name="type"
+                #serviceType="ngModel"
+                class="custom-select form-control"
+                [class.is-valid]="serviceType.touched && serviceType.valid"
+                [class.is-invalid]="serviceType.touched && serviceType.invalid"
+                id="serviceType">
+                <option value="" selected disabled>Select Service Type</option>
+                <option *ngFor="let type of types" [ngValue]="type">{{type.name}}</option>
+              </select>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+              <div class="invalid-feedback">
+                Please provide a valid service type.
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6 mb-3">
+              <div class="form-check">
+                <input
+                  ngModel
+                  name="deliverable"
+                  class="form-check-input"
+                  type="checkbox"
+                  [ngModel]="false"
+                  id="serviceDeliverable">
+                <label class="form-check-label" for="serviceDeliverable">
+                  Deliverable Service
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-12 mb-3">
+              <div class="custom-file">
+                <input
+                  id="images"
+                  name="images"
+                  type="file"
+                  class="custom-file-input"
+                  accept="image/*"
+                  (change)="changeImages($event.target)">
+                <label class="custom-file-label" for="images">Choose Images</label>
+              </div>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+              <div class="invalid-feedback">
+                Please choose service images.
+              </div>
+            </div>
+          </div>
+
+          {{serviceData.value|json}}
+
+          <div [hidden]="!image" class="row mx-3 my-3">
+            <div class="imgContainer my-1 col-12">
+              <img [src]="image"
+                   class="image p-1 w-100 h-100 border border-3 border-light rounded shadow-sm"
+                   alt="Service Image">
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn btn-secondary" id="modalCloseBtn" type="button" data-dismiss="modal"
+                    (click)="resetForm(); serviceData.reset(formDefaultValues); ">Cancel
+            </button>
+            <button class="btn btn-primary" type="submit" [disabled]="serviceData.invalid">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

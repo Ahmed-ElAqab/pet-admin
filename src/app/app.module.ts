@@ -51,8 +51,8 @@ export function getToken(): string {
     })
   ],
   providers: [
-    [{provide: APP_BASE_HREF, useValue:''},
-          JwtHelperService,]
+    [{provide: APP_BASE_HREF, useValue: ''},
+          JwtHelperService]
   ],
   bootstrap: [AppComponent]
 })
