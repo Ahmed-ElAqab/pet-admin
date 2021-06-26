@@ -1,0 +1,155 @@
+.col-auto {
+  width: auto;
+  max-width: none;
+  flex: 0 0 auto;
+}
+.icon {
+  width: 3rem;
+  height: 3rem;
+}
+.icon-shape i {
+  font-size: 1.25rem;
+}
+.icon-shape {
+  display: inline-flex;
+  padding: 12px;
+  text-align: center;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+}
+.text-muted {
+  color: #313449 !important;
+}
+
+.text-sm {
+  font-size: 0.875rem !important;
+}
+
+.text-success {
+  color: #2dce89 !important;
+}
+.mt-3 {
+  margin-top: 1rem !important;
+}
+.mr-2 {
+  margin-right: 0.5rem !important;
+}
+.font-weight-bold {
+  font-weight: 600 !important;
+}
+.card {
+  background-color: #eaecf4;
+  color: rgb(0, 0, 0);
+      text-align: center;
+}
+
+.fa.fa-ban {
+  color: #fa930e;
+}
+.bg-danger {
+  background-color: #49222e !important;
+}
+
+.fa.fa-bug {
+  color: #f0094e;
+}
+
+.fa-check-circle {
+  color: #01e998 !important;
+}
+.fa-exclamation-triangle {
+  color: #8dc7fd;
+}
+
+.fa-database {
+  color: #00b2ee;
+}
+
+.fa-server {
+  color: #ffc700;
+}
+
+.fa-hdd {
+  color: #ff6627;
+}
+
+.fa-microchip {
+  color: #ff1f29;
+}
+.fa-clock {
+  color: #fe1c7c;
+}
+
+.dashboard-title {
+  color: white;
+  text-align: center;
+  margin: 10px auto;
+  margin-bottom: 36px;
+}
+
+.fa-pie-chart {
+  color: #fe1c7c;
+}
+
+.http-traces-table {
+  border-radius: 3px;
+  padding: 16px;
+  margin: 13px;
+  width: 98%;
+  background-color: #eaecf4;
+}
+.tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+  border-color: #ffffff0d;
+  border-style: solid;
+  border-width: 0;
+}
+
+.tbody {
+  color: #b4b4b4;
+}
+
+/* .badge-warning {
+  color: #212529;
+  background-color: #fa9309;
+} */
+
+/* .badge-success {
+  color: #212529;
+  background-color: #07ff66;
+}
+
+.badge-danger {
+  color: #212529;
+  background-color: #f0094e;
+}
+.badge-success {
+  color: #212529;
+  background-color: #07ff66;
+}
+
+.badge-info {
+  color: #212529;
+  background-color: #82afdc;
+} */
+
+.card-title.text-muted.mb-3 {
+  margin-left: 8px;
+}
+
+.custom-chart {
+  color: #ffffff;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+/* .health {
+  margin-bottom: -140px;
+} */

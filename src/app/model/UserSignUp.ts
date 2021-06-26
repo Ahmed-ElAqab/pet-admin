@@ -1,8 +1,10 @@
-import {Address} from './Address.model';
+import { Address } from './Address.model';
 
-export class UserSignUp{
+export class UserSignUp {
   id: number;
   email: string;
+  firstName: string;
+  lastName: string;
   phoneNumber: string;
   address: Address = new Address();
   role: string;
