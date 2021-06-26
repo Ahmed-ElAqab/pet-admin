@@ -1,47 +1,47 @@
 <button type="button" class="m-3 float-right text-capitalize btn btn-primary" data-toggle="modal"
         data-target="#productModal">Add new product
 </button>
-<table class="table table-hover">
-  <thead>
-  <tr>
-    <th class="text-center" scope="col">#</th>
-    <th class="text-center" scope="col">Name</th>
-    <th class="text-center" scope="col">Price</th>
-    <th class="text-center" scope="col">Qty</th>
-    <th class="text-center" scope="col">Category</th>
-    <th class="text-center" scope="col">Brand</th>
-    <th class="text-center" scope="col">Discount</th>
-    <th class="text-center" scope="col">Available</th>
-    <th class="text-center" scope="col">Rate</th>
-    <th class="text-center" scope="col">Species</th>
-    <th class="text-center" scope="col">Handle</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let product of productList | paginate: {itemsPerPage: pageLimit, currentPage: page, totalItems: count}">
-    <th class="text-center" scope="row">{{product.id}}</th>
-    <td class="text-center">{{product.name}}</td>
-    <td class="text-center">{{product.price|currency:'EGP':'symbol'}}</td>
-    <td class="text-center">{{product.quantity}}</td>
-    <td class="text-center">{{product.category.name}}</td>
-    <td class="text-center">{{product.brand.name}}</td>
-    <td class="text-center">{{product.discount|percent}}</td>
-    <td class="text-center">{{product.available}}</td>
-    <td class="text-center">{{getAvgRate(product.rates)}}</td>
-    <td class="text-center">{{product.species.speciesName}}</td>
-    <td class="row justify-content-center">
-      <button class="col-5 mr-2 btn btn-sm btn-warning" data-toggle="modal" data-target="#productEditModal"
-              (click)="selectedProduct = product">Edit
-      </button>
-      <button class="col-5 btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal"
-              (click)="selectedProduct = product">Delete
-      </button>
-    </td>
-
-
-  </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th class="text-center" scope="col">#</th>
+      <th class="text-center" scope="col">Name</th>
+      <th class="text-center" scope="col">Price</th>
+      <th class="text-center" scope="col">Qty</th>
+      <th class="text-center" scope="col">Category</th>
+      <th class="text-center" scope="col">Brand</th>
+      <th class="text-center" scope="col">Discount</th>
+      <th class="text-center" scope="col">Available</th>
+      <th class="text-center" scope="col">Rate</th>
+      <th class="text-center" scope="col">Species</th>
+      <th class="text-center" scope="col">Handle</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of productList | paginate: {itemsPerPage: pageLimit, currentPage: page, totalItems: count}">
+      <th class="text-center" scope="row">{{product.id}}</th>
+      <td class="text-center">{{product.name}}</td>
+      <td class="text-center">{{product.price|currency:'EGP':'symbol'}}</td>
+      <td class="text-center">{{product.quantity}}</td>
+      <td class="text-center">{{product.category.name}}</td>
+      <td class="text-center">{{product.brand.name}}</td>
+      <td class="text-center">{{product.discount|percent}}</td>
+      <td class="text-center">{{product.available}}</td>
+      <td class="text-center">{{getAvgRate(product.rates)}}</td>
+      <td class="text-center">{{product.species.speciesName}}</td>
+      <td class="row justify-content-center">
+        <button class="col-5 mr-2 btn btn-sm btn-warning" data-toggle="modal" data-target="#productEditModal"
+                (click)="selectedProduct = product">Edit
+        </button>
+        <button class="col-5 btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal"
+                (click)="selectedProduct = product">Delete
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
 <div class="container-fluid">
   <div class="row justify-content-center">
     <pagination-controls
@@ -52,8 +52,10 @@
     </pagination-controls>
   </div>
 </div>
-<app-product-details [categories]="categories" [brands]="brands" [species]="species" (insert)="addProduct($event)"></app-product-details>
-<app-product-edit-details [categories]="categories" [brands]="brands" [species]="species" [product]="selectedProduct" (update)="addProduct($event)"></app-product-edit-details>
+<app-product-details [categories]="categories" [brands]="brands" [species]="species"
+                     (insert)="addProduct($event)"></app-product-details>
+<app-product-edit-details [categories]="categories" [brands]="brands" [species]="species" [product]="selectedProduct"
+                          (update)="addProduct($event)"></app-product-edit-details>
 
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog">

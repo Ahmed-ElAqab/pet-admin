@@ -2,6 +2,8 @@ import { Address } from './Address.model';
 
 export class ServiceProvider {
   id: number;
+  firstName: string;
+  lastName: string;
   email: string;
   phoneNumber: string;
   address: Address = new Address();
@@ -9,7 +11,6 @@ export class ServiceProvider {
   userName: string;
   gender: string;
   birthDate: Date;
-  password: string;
 
   constructor() {
   }

@@ -19,6 +19,13 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { NewAdminComponent } from './new-admin/new-admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ProductsBoardComponent } from './products-board/products-board.component';
+import { ServicesBoardComponent } from './services-board/services-board.component';
+import { ImageViewerComponent } from './image-viewer/image-viewer.component';
+import { SellersBoardComponent } from './sellers-board/sellers-board.component';
+import { CustomersBoardComponent } from './customers-board/customers-board.component';
+import { ServiceProvidersBoardComponent } from './service-providers-board/service-providers-board.component';
+import { AdminsBoardComponent } from './admins-board/admins-board.component';
 export function getToken(): string {
   return localStorage.getItem('token');
 }
@@ -33,7 +40,14 @@ export function getToken(): string {
     LoginComponent,
     SignupComponent,
     NewAdminComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProductsBoardComponent,
+    ServicesBoardComponent,
+    ImageViewerComponent,
+    SellersBoardComponent,
+    CustomersBoardComponent,
+    ServiceProvidersBoardComponent,
+    AdminsBoardComponent
   ],
   imports: [
     BrowserModule,

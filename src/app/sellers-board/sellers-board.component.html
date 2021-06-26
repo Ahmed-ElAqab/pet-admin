@@ -1,0 +1,42 @@
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th class="text-center" scope="col">#</th>
+      <th class="text-center" scope="col">Full Name</th>
+      <th class="text-center" scope="col">Email</th>
+      <th class="text-center" scope="col">Username</th>
+      <th class="text-center" scope="col">Phone Number</th>
+      <th class="text-center" scope="col">Street</th>
+      <th class="text-center" scope="col">City</th>
+      <th class="text-center" scope="col">Country</th>
+      <th class="text-center" scope="col">Gender</th>
+      <th class="text-center" scope="col">Birth Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let seller of sellers | paginate: {itemsPerPage: pageLimit, currentPage: page, totalItems: count}">
+      <th class="text-center" scope="row">{{seller.id}}</th>
+      <td class="text-center">{{seller.firstName + ' ' + seller.lastName}}</td>
+      <td class="text-center">{{seller.email}}</td>
+      <td class="text-center">{{seller.userName}}</td>
+      <td class="text-center">{{seller.phoneNumber}}</td>
+      <td class="text-center">{{seller.address.street}}</td>
+      <td class="text-center">{{seller.address.city}}</td>
+      <td class="text-center">{{seller.address.country}}</td>
+      <td class="text-center text-uppercase">{{seller.gender}}</td>
+      <td class="text-center">{{seller.birthDate | date:'dd/M/yyyy'}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <pagination-controls
+      [autoHide]="true"
+      [maxSize]="5"
+      [responsive]="true"
+      (pageChange)="pageChanged($event)">
+    </pagination-controls>
+  </div>
+</div>

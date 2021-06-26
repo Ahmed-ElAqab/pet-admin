@@ -2,3 +2,16 @@
 .ngx-pagination .current {
   background-color: #ffd333 !important;
 }
+
+.table-image {
+  -webkit-box-shadow: 0 5px 15px 0 rgba(105, 103, 103, 0.5);
+  box-shadow: 0 5px 15px 0 rgba(105, 103, 103, 0.5);
+  border: 2px solid #ffffff;
+  border-radius: 10px;
+  vertical-align: middle;
+  width: 35px;
+}
+
+.table-image.clickable {
+  cursor: pointer;
+}

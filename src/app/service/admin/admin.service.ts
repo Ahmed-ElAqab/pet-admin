@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Admin } from 'src/app/model/Admin.model';
 import { environment } from 'src/environments/environment';
+import {Admins} from '../../model/Admins.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,12 @@ export class AdminService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAdmins(): Observable<Admin[]> {
-    return this.httpClient.get<Admin[]>(this.url);
+  getAdmins(page?: number, pageLimit?: number): Observable<Admins> {
+    let parameters = new HttpParams();
+    if (page !== undefined && pageLimit !== undefined) {
+      parameters = parameters.set('page', page.toString()).append('pageLimit', pageLimit.toString());
+    }
+    return this.httpClient.get<Admins>(this.url, {params: parameters});
   }
 
   getAdmin(id: number): Observable<Admin> {

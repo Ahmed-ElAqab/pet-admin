@@ -1,0 +1,56 @@
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th class="text-center" scope="col">#</th>
+      <th class="text-center" scope="col">Name</th>
+      <th class="text-center" scope="col">Price</th>
+      <th class="text-center" scope="col">Qty</th>
+      <th class="text-center" scope="col">Category</th>
+      <th class="text-center" scope="col">Brand</th>
+      <th class="text-center" scope="col">Images</th>
+      <th class="text-center" scope="col">Discount</th>
+      <th class="text-center" scope="col">Available</th>
+      <th class="text-center" scope="col">Rate</th>
+      <th class="text-center" scope="col">Species</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of products | paginate: {itemsPerPage: pageLimit, currentPage: page, totalItems: count}">
+      <th class="text-center" scope="row">{{product.id}}</th>
+      <td class="text-center">{{product.name}}</td>
+      <td class="text-center">{{product.price|currency:'EGP':'symbol'}}</td>
+      <td class="text-center">{{product.quantity}}</td>
+      <td class="text-center">{{product.category.name}}</td>
+      <td class="text-center">{{product.brand.name}}</td>
+      <td class="text-center">
+        <img
+          *ngFor="let image of product.images"
+          class="table-image clickable"
+          [src]="image.url" alt="Product Image"
+          data-toggle="modal"
+          data-target="#imageViewerModal"
+          (click)="selectedImage = image.url"/>
+      </td>
+      <td class="text-center">{{product.discount|percent}}</td>
+      <td class="text-center text-uppercase"
+          [ngClass]="product.available ? 'text-success' : 'text-danger'">{{product.available}}</td>
+      <td class="text-center">{{getAvgRate(product.rates)}}</td>
+      <td class="text-center">{{product.species.speciesName}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <pagination-controls
+      [autoHide]="true"
+      [maxSize]="5"
+      [responsive]="true"
+      (pageChange)="pageChanged($event)">
+    </pagination-controls>
+  </div>
+</div>
+
+
+<app-image-viewer [title]="'Product Image Viewer'" [image]="selectedImage"></app-image-viewer>

@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {Seller} from 'src/app/model/Seller.model';
 import {environment} from 'src/environments/environment';
 import {Products} from '../../model/Products.model';
+import {Sellers} from '../../model/Sellers.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,12 @@ export class SellerService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getSellers(): Observable<Seller[]> {
-    return this.httpClient.get<Seller[]>(this.url);
+  getSellers(page?: number, pageLimit?: number): Observable<Sellers> {
+    let parameters = new HttpParams();
+    if (page !== undefined && pageLimit !== undefined) {
+      parameters = parameters.set('page', page.toString()).append('pageLimit', pageLimit.toString());
+    }
+    return this.httpClient.get<Sellers>(this.url, { params: parameters});
   }
 
   getSeller(id: number): Observable<Seller> {

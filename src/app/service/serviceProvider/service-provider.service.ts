@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {ServiceProvider} from 'src/app/model/ServiceProvider.model';
 import {environment} from 'src/environments/environment';
 import {Services} from '../../model/Services.model';
+import {ServiceProviders} from '../../model/ServiceProviders.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,12 @@ export class ServiceProviderService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getAllServiceProviders(): Observable<ServiceProvider[]> {
-    return this.httpClient.get<ServiceProvider[]>(this.url);
+  getAllServiceProviders(page?: number, pageLimit?: number): Observable<ServiceProviders> {
+    let parameters = new HttpParams();
+    if (page !== undefined && pageLimit !== undefined) {
+      parameters = parameters.set('page', page.toString()).append('pageLimit', pageLimit.toString());
+    }
+    return this.httpClient.get<ServiceProviders>(this.url, {params: parameters});
   }
 
   getServiceProvider(id: number): Observable<ServiceProvider> {
@@ -27,7 +32,7 @@ export class ServiceProviderService {
     if (page !== undefined && pageLimit !== undefined) {
       parameters = parameters.append('page', page.toString()).append('pageLimit', pageLimit.toString());
     }
-    return this.httpClient.get<Services>(this.url + '/' + id + '/services', { params: parameters });
+    return this.httpClient.get<Services>(this.url + '/' + id + '/services', {params: parameters});
   }
 
   addNewServiceProvider(serviceProvider: ServiceProvider): Observable<ServiceProvider> {

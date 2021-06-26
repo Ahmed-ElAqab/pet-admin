@@ -1,4 +1,4 @@
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Service} from 'src/app/model/Service.model';
@@ -15,8 +15,12 @@ export class ServiceService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getAllServices(): Observable<Services> {
-    return this.httpClient.get<Services>(this.url);
+  getAllServices(page?: number, pageLimit?: number): Observable<Services> {
+    let parameters = new HttpParams();
+    if (page !== undefined && pageLimit !== undefined) {
+      parameters = parameters.set('page', page.toString()).append('pageLimit', pageLimit.toString());
+    }
+    return this.httpClient.get<Services>(this.url, {params: parameters});
   }
 
   getService(id: number): Observable<Service> {

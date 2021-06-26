@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {Customer} from '../../model/Customer.model';
+import {Customers} from '../../model/Customers.model';
 
 
 @Injectable({
@@ -12,10 +13,15 @@ export class CustomerService {
 
   private url = environment.apiUrl + 'customers';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
-  getCustomers(): Observable<Customer[]> {
-    return this.httpClient.get<Customer[]>(this.url);
+  getCustomers(page?: number, pageLimit?: number): Observable<Customers> {
+    let parameters = new HttpParams();
+    if (page !== undefined && pageLimit !== undefined) {
+      parameters = parameters.set('page', page.toString()).append('pageLimit', pageLimit.toString());
+    }
+    return this.httpClient.get<Customers>(this.url, {params: parameters});
   }
 
   getCustomer(id: number): Observable<Customer> {

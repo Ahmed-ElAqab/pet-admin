@@ -18,10 +18,10 @@ export class ProductService {
 
   getProducts(page?: number, pageLimit?: number, minPrice?: number, maxPrice?: number): Observable<Products> {
     let parameters = new HttpParams();
-    if (page != undefined && pageLimit != undefined) {
+    if (page !== undefined && pageLimit !== undefined) {
       parameters = parameters.set('page', page.toString()).append('pageLimit', pageLimit.toString());
     }
-    if (minPrice != undefined && maxPrice != undefined) {
+    if (minPrice !== undefined && maxPrice !== undefined) {
       parameters = parameters.append('price.lt', minPrice.toString()).append('price.gt', maxPrice.toString());
     }
     return this.httpClient.get<Products>(this.url, {params: parameters});
