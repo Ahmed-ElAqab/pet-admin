@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit {
 
   public getTraces() {
     this._dashboardService.getHttpTraces().subscribe((response: any) => {
-      console.log("response ", response.traces);
+      // console.log("response ", response.traces);
       this.seperateHttpTypes(response.traces);
       this.initializeBarChart();
       this.initializepolarAreaChart();
@@ -82,28 +82,28 @@ export class DashboardComponent implements OnInit {
 
 
   public onSelectTrace(trace: any): void {
-    console.log(trace)
+    // console.log(trace)
     this.selectedTrace = trace;
     document.getElementById('trace-modal').click();
   }
 
   private getCpuUsage() {
-    this._dashboardService.getSystemCpu().subscribe(
-      (response: SystemCpu) => {
-        console.log(response);
-        this.systemCpu = response;
-      },
-      (error: HttpErrorResponse) => {
-        this.toastrService.error(error.message);
-      }
-    );
+    // this._dashboardService.getSystemCpu().subscribe(
+    //   (response: SystemCpu) => {
+    //     console.log(response);
+    //     this.systemCpu = response;
+    //   },
+    //   (error: HttpErrorResponse) => {
+    //     this.toastrService.error(error.message);
+    //   }
+    // );
   }
 
 
   private getSystemHealth() {
     this._dashboardService.getSystemHealth().subscribe(
       (response: SystemHealth) => {
-        console.log("response ", response)
+        // console.log("response ", response)
         this.systemHealth = response;
         this.systemHealth.components.diskSpace.details.free = this.formatBytes(this.systemHealth.components.diskSpace.details.free);
       },

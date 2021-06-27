@@ -39,7 +39,7 @@ export class AuthenticationService {
 
   public login(token: string) {
     localStorage.setItem('token', token);
-    console.log('token', token);
+    // console.log('token', token);
     this.changeLoggedStatus(true);
   }
 
