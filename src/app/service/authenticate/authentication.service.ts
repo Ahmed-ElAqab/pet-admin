@@ -33,20 +33,14 @@ export class AuthenticationService {
   }
 
   public logOut() {
-    console.log("from log out " + this.logged)
     localStorage.removeItem('token');
     this.changeLoggedStatus(false);
-    console.log("from log out " + this.logged)
-
   }
 
   public login(token: string) {
-    console.log("from log in " + this.logged)
-
     localStorage.setItem('token', token);
+    console.log('token', token);
     this.changeLoggedStatus(true);
-    console.log("from log in " + this.logged)
-
   }
 
 
@@ -67,4 +61,9 @@ export class AuthenticationService {
   getLoggedStatus(): Observable<boolean> {
     return this.logged.asObservable();
   }
+
+  public checkEmailExist(email:any):Observable<boolean>{
+    return this.httpClient.post<boolean>(`${environment.apiUrl}` + 'auth/email',email);
+  }
+
 }

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Service } from 'src/app/model/Service.model';
 import { ServiceProvider } from 'src/app/model/ServiceProvider.model';
 import { environment } from 'src/environments/environment';
+import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class ServiceProviderService {
   private url = environment.apiUrl + "serviceproviders"
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private _jwtHelperService: JwtHelperService) { }
 
   getAllServiceProviders(): Observable<ServiceProvider[]> {
     return this.httpClient.get<ServiceProvider[]>(this.url);
@@ -40,5 +41,10 @@ export class ServiceProviderService {
     return this.httpClient.delete(this.url);
   }
 
+  public isServiceProvider(): boolean {
+    let TOKEN = localStorage.getItem('token');
+    let role = this._jwtHelperService.decodeToken(TOKEN ? TOKEN : undefined).role[0].authority;
+    return role == "ROLE_SERVICE_PROVIDER";
+  }
 
 }

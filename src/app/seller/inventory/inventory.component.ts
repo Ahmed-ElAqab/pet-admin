@@ -9,6 +9,7 @@ import {SpeciesService} from '../../service/species/species.service';
 import {Category} from '../../model/Category.model';
 import {Species} from '../../model/Species.model';
 import {Brand} from '../../model/Brand.model';
+import {UserService} from "../../service/userService/user.service";
 
 @Component({
   selector: 'app-inventory',
@@ -18,7 +19,7 @@ import {Brand} from '../../model/Brand.model';
 export class InventoryComponent implements OnInit {
 
   sellerId: number;
-  productList: Product[];
+  productList: Product[] = [];
   selectedProduct: Product;
   page = 1;
   pageLimit = 12;
@@ -32,12 +33,13 @@ export class InventoryComponent implements OnInit {
     private productService: ProductService,
     private categoryService: CategoryService,
     private brandService: BrandService,
-    private speciesService: SpeciesService
+    private speciesService: SpeciesService,
+    private _userService:UserService
   ) {
   }
 
   ngOnInit(): void {
-    this.sellerId = 1;
+    this.sellerId = this._userService.getUserId();
     this.getProducts();
     this.categoryService.getAllCategory().subscribe(categories => this.categories = categories);
     this.brandService.getAllBrands().subscribe(brands => this.brands = brands);

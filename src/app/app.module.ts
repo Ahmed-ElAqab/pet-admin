@@ -8,7 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import { APP_BASE_HREF } from '@angular/common';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
@@ -19,6 +19,7 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { NewAdminComponent } from './new-admin/new-admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AuthenticationInterceptorService } from './service/interceptor/authentication-interceptor.service';
 export function getToken(): string {
   return localStorage.getItem('token');
 }
@@ -50,7 +51,7 @@ export function getToken(): string {
       }
     })
   ],
-  providers: [
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptorService, multi: true},
     [{provide: APP_BASE_HREF, useValue:''},
           JwtHelperService,]
   ],

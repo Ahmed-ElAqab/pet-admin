@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {Seller} from 'src/app/model/Seller.model';
 import {environment} from 'src/environments/environment';
 import {Products} from '../../model/Products.model';
+import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import {Products} from '../../model/Products.model';
 export class SellerService {
   private url = environment.apiUrl + 'sellers';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private _jwtHelperService: JwtHelperService) {
   }
 
   getSellers(): Observable<Seller[]> {
@@ -45,5 +46,12 @@ export class SellerService {
 
   deleteSellers(): Observable<any> {
     return this.httpClient.delete(this.url);
+  }
+
+  public isSeller(): boolean {
+    let TOKEN = localStorage.getItem('token');
+    let role = this._jwtHelperService.decodeToken(TOKEN ? TOKEN : undefined).role[0].authority;
+    console.log("role " , role);
+    return role == "ROLE_SELLER";
   }
 }

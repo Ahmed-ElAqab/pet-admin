@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { AuthenticationService } from '../service/authenticate/authentication.service';
-import { UserService } from '../service/userService/user.service';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Router} from '@angular/router';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {AuthenticationService} from '../service/authenticate/authentication.service';
+import {UserService} from '../service/userService/user.service';
 
 @Component({
   selector: 'app-header',
@@ -11,19 +11,22 @@ import { UserService } from '../service/userService/user.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private _authenticationService: AuthenticationService,
-    private _routerService: Router,
-    private jwtHelper: JwtHelperService,
-    private userServie: UserService) {
+  public name: string = "";
 
-    }
+  constructor(private _authenticationService: AuthenticationService,
+              private _routerService: Router,
+              private jwtHelper: JwtHelperService,
+              private userServie: UserService) {
+
+  }
 
   ngOnInit(): void {
+    this.name = this.jwtHelper.decodeToken(localStorage.getItem("token")).name;
 
   }
 
 
-  logout(){
+  logout() {
 
     this._authenticationService.logOut();
     this._routerService.navigate(["/login"]);

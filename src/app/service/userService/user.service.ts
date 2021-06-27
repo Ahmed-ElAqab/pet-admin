@@ -31,4 +31,11 @@ export class UserService {
   getUserRole(): string {
     return this.jwtHelper.decodeToken(localStorage.getItem("token")).role[0].authority;
   }
+
+  public getUserId(): number {
+
+    const TOKEN = localStorage.getItem("token");
+    return +this.jwtHelper.decodeToken(TOKEN ? TOKEN : undefined).id;
+
+  }
 }
