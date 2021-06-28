@@ -10,7 +10,7 @@ import {Rate} from '../model/Rate.model';
 })
 export class ServicesBoardComponent implements OnInit {
 
-  services: Service[];
+  services: Service[] = [];
   page = 1;
   pageLimit = 12;
   count: number;
@@ -39,8 +39,13 @@ export class ServicesBoardComponent implements OnInit {
 
   private getServices(): void {
     this.serviceService.getAllServices(this.page - 1, this.pageLimit).subscribe(response => {
+      if (response !== null) {
       this.services = response.services;
       this.count = response.count;
+      } else {
+        this.services = [];
+        this.count = 0;
+      }
     });
   }
 }

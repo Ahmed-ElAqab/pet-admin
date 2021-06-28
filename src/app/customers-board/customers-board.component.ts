@@ -9,7 +9,7 @@ import {CustomerService} from '../service/customer/customer.service';
 })
 export class CustomersBoardComponent implements OnInit {
 
-  customers: Customer[];
+  customers: Customer[] = [];
   pageLimit = 12;
   page = 1;
   count: number;
@@ -28,8 +28,13 @@ export class CustomersBoardComponent implements OnInit {
 
   private getCustomers(): void {
     this.customerService.getCustomers(this.page - 1, this.pageLimit).subscribe(response => {
-      this.customers = response.customers;
-      this.count = response.count;
+      if (response !== null) {
+        this.customers = response.customers;
+        this.count = response.count;
+      } else {
+        this.customers = [];
+        this.count = 0;
+      }
     });
   }
 }

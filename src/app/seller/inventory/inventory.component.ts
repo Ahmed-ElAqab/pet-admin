@@ -80,8 +80,13 @@ export class InventoryComponent implements OnInit {
 
   private getProducts(): void {
     this.sellerService.getSellerProducts(this.sellerId, this.page - 1, this.pageLimit).subscribe(products => {
+      if (products !== null) {
       this.productList = products.products;
       this.count = products.count;
+      } else {
+        this.productList = [];
+        this.count = 0;
+      }
     });
   }
 

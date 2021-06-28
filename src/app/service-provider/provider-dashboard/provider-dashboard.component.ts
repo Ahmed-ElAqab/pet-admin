@@ -70,8 +70,13 @@ export class ProviderDashboardComponent implements OnInit {
 
   private getServices(): void {
     this.providerService.getServiceProviderServices(this.providerId, this.page - 1, this.pageLimit).subscribe(services => {
+      if (services !== null) {
       this.serviceList = services.services;
       this.count = services.count;
+      } else {
+        this.serviceList = [];
+        this.count = 0;
+      }
     });
   }
 

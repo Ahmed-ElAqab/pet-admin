@@ -10,7 +10,7 @@ import {Rate} from '../model/Rate.model';
 })
 export class ProductsBoardComponent implements OnInit {
 
-  products: Product[];
+  products: Product[] = [];
   page = 1;
   pageLimit = 12;
   count: number;
@@ -39,8 +39,13 @@ export class ProductsBoardComponent implements OnInit {
 
   private getProducts(): void {
     this.productService.getProducts(this.page - 1, this.pageLimit).subscribe(response => {
+      if (response !== null) {
       this.products = response.products;
       this.count = response.count;
+      } else {
+        this.products = [];
+        this.count = 0;
+      }
     });
   }
 }

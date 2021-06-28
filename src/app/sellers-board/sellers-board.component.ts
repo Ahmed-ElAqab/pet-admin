@@ -9,7 +9,7 @@ import {SellerService} from '../service/seller/seller.service';
 })
 export class SellersBoardComponent implements OnInit {
 
-  sellers: Seller[];
+  sellers: Seller[] = [];
   pageLimit = 12;
   page = 1;
   count: number;
@@ -28,8 +28,13 @@ export class SellersBoardComponent implements OnInit {
 
   private getSellers(): void {
     this.sellerService.getSellers(this.page - 1, this.pageLimit).subscribe(response => {
+      if (response !== null) {
       this.sellers = response.sellers;
       this.count = response.count;
+      } else {
+        this.sellers = [];
+        this.count = 0;
+      }
     });
   }
 }

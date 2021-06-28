@@ -9,7 +9,7 @@ import {AdminService} from '../service/admin/admin.service';
 })
 export class AdminsBoardComponent implements OnInit {
 
-  admins: Admin[];
+  admins: Admin[] = [];
   pageLimit = 12;
   page = 1;
   count: number;
@@ -28,8 +28,13 @@ export class AdminsBoardComponent implements OnInit {
 
   private getAdmins(): void {
     this.adminService.getAdmins(this.page - 1, this.pageLimit).subscribe(response => {
-      this.admins = response.admins;
-      this.count = response.count;
+      if (response !== null) {
+        this.admins = response.admins;
+        this.count = response.count;
+      } else {
+        this.admins = [];
+        this.count = 0;
+      }
     });
   }
 }

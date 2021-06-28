@@ -9,7 +9,7 @@ import {ServiceProvider} from '../model/ServiceProvider.model';
 })
 export class ServiceProvidersBoardComponent implements OnInit {
 
-  providers: ServiceProvider[];
+  providers: ServiceProvider[] = [];
   pageLimit = 12;
   page = 1;
   count: number;
@@ -28,8 +28,13 @@ export class ServiceProvidersBoardComponent implements OnInit {
 
   private getProviders(): void {
     this.providerService.getAllServiceProviders(this.page - 1, this.pageLimit).subscribe(response => {
+      if (response !== null) {
       this.providers = response.providers;
       this.count = response.count;
+      } else {
+        this.providers = [];
+        this.count = 0;
+      }
     });
   }
 }
