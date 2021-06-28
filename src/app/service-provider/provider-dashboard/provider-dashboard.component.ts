@@ -14,7 +14,7 @@ import {ServiceProviderService} from '../../service/serviceProvider/service-prov
 export class ProviderDashboardComponent implements OnInit {
 
   providerId: number;
-  serviceList: Service[];
+  serviceList: Service[] = [];
   selectedService: Service;
   page = 1;
   pageLimit = 12;

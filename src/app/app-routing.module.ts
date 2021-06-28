@@ -16,6 +16,7 @@ import {SellersBoardComponent} from './sellers-board/sellers-board.component';
 import {CustomersBoardComponent} from './customers-board/customers-board.component';
 import {ServiceProvidersBoardComponent} from './service-providers-board/service-providers-board.component';
 import {AdminsBoardComponent} from './admins-board/admins-board.component';
+import {ServiceProviderGuard} from './guards/serviceProvider/service-provider.guard';
 
 
 const routes: Routes = [
@@ -30,11 +31,10 @@ const routes: Routes = [
       },
       {path: "new-user-admin", component: NewAdminComponent, canActivate: [AuthenticationGuard, AdminGuardsGuard]},
       {path: "dashboard", component: DashboardComponent, canActivate: [AuthenticationGuard, AdminGuardsGuard]},
-      {path: "dashboard", component: DashboardComponent, canActivate: [AuthenticationGuard, ServiceProviderService]},
       {
         path: 'provider',
         loadChildren: () => import('./service-provider/service-provider.module').then(m => m.ServiceProviderModule),
-        canActivate: [AuthenticationGuard, ServiceProviderService]
+        canActivate: [AuthenticationGuard, ServiceProviderGuard]
       },
       {path: 'new-user-admin', component: NewAdminComponent, canActivate: [AuthenticationGuard, AdminGuardsGuard]},
       {path: 'products', component: ProductsBoardComponent, canActivate: [AuthenticationGuard, AdminGuardsGuard]},
